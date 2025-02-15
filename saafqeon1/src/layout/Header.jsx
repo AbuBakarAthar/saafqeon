@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom"; // If using React Router
+import { NavLink, useLocation } from "react-router-dom"; // Use NavLink
 
 const Header = () => {
   const location = useLocation(); // Get current route
@@ -16,9 +16,9 @@ const Header = () => {
         <div className="flex justify-between h-16">
           {/* Logo on the left */}
           <div className="flex-shrink-0 flex items-center">
-            <a href="/" className="text-lg font-bold text-white">
+            <NavLink to="/" className="text-lg font-bold text-white">
               YourLogo
-            </a>
+            </NavLink>
           </div>
 
           {/* Navigation links in the center */}
@@ -31,28 +31,23 @@ const Header = () => {
               { name: "Blog", link: "/blog" },
               { name: "Product", link: "/products" },
               { name: "Contact Us", link: "/contact" },
-
-
             ].map((item) => (
-              <a
+              <NavLink
                 key={item.name}
-                href={item.link}
-                className={`group relative text-white hover:text-gray-400 transition-all ${
-                  active === item.link ? "font-semibold" : ""
-                }`}
+                to={item.link}
+                className={({ isActive }) =>
+                  `group relative text-white hover:text-gray-400 transition-all ${
+                    isActive ? "font-semibold" : ""
+                  }`
+                }
               >
                 {item.name}
                 <span
-                  className={`absolute left-0 bottom-0 w-full h-[2px] bg-blue-500 transition-transform duration-300 ${
-                    active === item.link ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
-                  }`}
+                  className="absolute left-0 bottom-0 w-full h-[2px] bg-blue-500 transition-transform duration-300 group-hover:scale-x-100"
                 ></span>
-              </a>
+              </NavLink>
             ))}
           </div>
-
-          {/* Contact Us button on the right */}
-          
         </div>
       </div>
     </nav>
